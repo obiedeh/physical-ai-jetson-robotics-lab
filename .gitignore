@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# Environments
+.venv/
+venv/
+.env
+.env.*
+
+# Data and generated assets
+data/raw/
+data/generated/
+outputs/
+runs/
+mlruns/
+*.bag
+*.db3
+reports/inventory/*.json
+!reports/inventory/.gitkeep
+
+# Isaac / USD generated cache
+isaac/cache/
+isaac/outputs/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.codex/
