@@ -3,9 +3,9 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-# Isaac Sim 5.x standalone: /home/oedeh/isaacsim/python.sh
-# Isaac Sim 6.x pip install: ~/.venv/isaacsim6/bin/python
-ISAAC_PYTHON="${ISAAC_PYTHON:-/home/oedeh/isaacsim/python.sh}"
+# Isaac Sim 6.x pip install (default): ~/.venv/isaacsim6/bin/python
+# Isaac Sim 5.x standalone (legacy):  /home/oedeh/isaacsim/python.sh
+ISAAC_PYTHON="${ISAAC_PYTHON:-${HOME}/.venv/isaacsim6/bin/python}"
 
 if [[ ! -x "$ISAAC_PYTHON" ]]; then
   echo "Isaac Sim Python not found: $ISAAC_PYTHON" >&2

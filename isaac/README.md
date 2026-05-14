@@ -56,40 +56,57 @@ Override the Blender executable if needed:
 BLENDER=/path/to/blender bash scripts/linux_rtx/render_factory_cell_blender.sh
 ```
 
-## Current Platform Note
+## Isaac Sim 6.0 Setup (Linux RTX Workstation)
 
-Isaac Sim 5.1.0 crashes during RTX renderer startup on the Linux RTX workstation. Root cause
-diagnosed 2026-05-14: the installed RTX 5090 uses Blackwell architecture (sm_120), and Isaac Sim
-5.1.0's bundled RTX stack (CUDA 12.0, Kit 107.3.3) has no compiled shaders for sm_120. A second
-issue — gfxstream Vulkan ICD presenting a duplicate GPU — was also found and fixed in the render
-script via `VK_ICD_FILENAMES`.
-
-Fix: **upgrade to Isaac Sim 6.0.0**, which ships Blackwell support.
+Isaac Sim 6.0.0 is installed via pip into a Python 3.12 virtual environment.
 
 ```bash
-python3.10 -m venv ~/.venv/isaacsim6
+python3 -m venv ~/.venv/isaacsim6
 source ~/.venv/isaacsim6/bin/activate
-pip install isaacsim==6.0.0.0 \
-  --extra-index-url https://pypi.nvidia.com \
-  --extra-index-url https://pypi.ngc.nvidia.com
+pip install \
+  "isaacsim[extscache]==6.0.0.0" \
+  "isaacsim-core==6.0.0.0" \
+  "isaacsim-asset==6.0.0.0" \
+  "isaacsim-cortex==6.0.0.0" \
+  "isaacsim-gui==6.0.0.0" \
+  "isaacsim-replicator==6.0.0.0" \
+  "isaacsim-robot==6.0.0.0" \
+  "isaacsim-robot-motion==6.0.0.0" \
+  "isaacsim-sensor==6.0.0.0" \
+  "isaacsim-storage==6.0.0.0" \
+  "isaacsim-utils==6.0.0.0" \
+  "isaacsim-test==6.0.0.0" \
+  "isaacsim-example==6.0.0.0" \
+  "isaacsim-rl==6.0.0.0" \
+  "omniverse-kit==110.0.0.276876" \
+  --extra-index-url https://pypi.nvidia.com
+pip install "torch==2.10.0" "torchvision==0.25.0" "torchaudio==2.10.0" \
+  --extra-index-url https://pypi.nvidia.com
 ```
 
-Full diagnosis and install steps:
+Run the render script:
+
+```bash
+ISAAC_PYTHON=~/.venv/isaacsim6/bin/python bash scripts/linux_rtx/render_factory_cell.sh
+```
+
+### Platform Notes
+
+Isaac Sim 5.1.0 crashes on RTX 5090 (Blackwell, sm_120) — its CUDA 12.0 stack has no compiled
+shaders for that architecture. Isaac Sim 6.0.0 (Kit 110.0.0, CUDA 12.8/13.x driver) resolves this.
+
+The gfxstream Vulkan ICD presents a duplicate GPU and is excluded via `VK_ICD_FILENAMES` in the
+render script. The render script pins Vulkan to the NVIDIA ICD directly.
+
+Full diagnosis report:
 
 ```text
 reports/isaac/2026-05-14-linux-rtx-openusd-bringup.md
 ```
 
-Alternate paths while the upgrade is pending:
-
-```text
-docs/SIMULATION_ALTERNATIVES.md
-```
-
 ## Planned Work
 
-- replace proxy robot geometry with robo car and robotic arm USD assets
-- add a Blender or OpenUSD-based screenshot path while Isaac RTX rendering is blocked
+- replace proxy robot geometry with Yahboom robocar and Synria arm USD assets
 - add a Gazebo Harmonic track for ROS 2 mobile-base and sensor simulation
 - Isaac Lab training environments
 - synthetic data generation workflows
