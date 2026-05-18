@@ -5,7 +5,6 @@ import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 ROS_SRC = REPO_ROOT / "ros2_ws" / "src"
 XACRO_NS = "{http://www.ros.org/wiki/xacro}"

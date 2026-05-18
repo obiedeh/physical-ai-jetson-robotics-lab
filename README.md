@@ -41,6 +41,8 @@ This repository is designed to prove that full stack.
 | Area | Status | Evidence |
 |---|---|---|
 | Python package and CLI | Working | `physical_ai_lab/`, `tests/` |
+| Python CI | Working | Ruff on `physical_ai_lab/` and `tests/`, mypy on `physical_ai_lab/`, pytest |
+| ROS 2 CI | Working scope | Description package build smoke for Yahboom and Synria descriptions |
 | RTX simulation track | Working scaffold | `scripts/linux_rtx/`, `reports/simulation/` |
 | Synria ROS 2 description | Working scaffold | `ros2_ws/src/synria_arm_description/` |
 | Synria Isaac asset | Imported asset present | `isaac/usd/robots/synria_6dof_arm/` |
@@ -209,6 +211,16 @@ python -m pip install -e ".[dev]"
 pytest -q
 physical-ai-lab demo-telemetry
 ```
+
+Validation scope:
+
+```bash
+ruff check physical_ai_lab tests
+mypy physical_ai_lab
+pytest -q
+```
+
+CI also builds the ROS 2 description packages on Ubuntu/Jazzy. Control, MoveIt, Gazebo, Jetson, and hardware-dependent paths require dedicated simulation or hardware evidence before they are promoted to required CI gates.
 
 Windows PowerShell:
 

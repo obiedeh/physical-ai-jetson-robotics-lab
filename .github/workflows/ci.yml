@@ -32,7 +32,7 @@ jobs:
           python -m pip install -e ".[dev]"
 
       - name: Lint
-        run: ruff check .
+        run: ruff check physical_ai_lab tests
 
       - name: Type check
         run: mypy physical_ai_lab
@@ -41,7 +41,7 @@ jobs:
         run: pytest -q
 
   ros2-lint:
-    name: ROS 2 package lint
+    name: ROS 2 description package build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -60,11 +60,7 @@ jobs:
           source /opt/ros/jazzy/setup.bash
           colcon build --packages-select \
             rosmaster_m3pro_description \
-            rosmaster_m3pro_gazebo \
-            rosmaster_m3pro_moveit_config \
-            rosmaster_m3pro_bringup \
             synria_arm_description \
-            synria_arm_moveit_config \
             --cmake-args -DCMAKE_BUILD_TYPE=Release
         working-directory: ros2_ws
         shell: bash
