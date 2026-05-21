@@ -275,6 +275,18 @@ physical-ai-lab demo-telemetry
 
 ---
 
+## Run This Demo
+
+```bash
+physical-ai-lab demo-telemetry
+physical-ai-lab rtx-projects
+physical-ai-lab signature-demos
+```
+
+The demo path exercises the current CLI evidence surface: runtime telemetry, workstation project discovery, and signature scenario inventory. Hardware, MoveIt, Gazebo, Isaac, and Jetson commands remain evidence-gated until the matching reports are captured.
+
+---
+
 ## Workstation and Simulation Checks
 
 ```bash
